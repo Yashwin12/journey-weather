@@ -1,0 +1,18 @@
+h2 {
+    background-color: aqua;
+}
+
+.form-inline {
+    border: blue;
+    border-style: solid;
+    padding:10px;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: gray;
+}
+
+input * {
+    padding-left:20px;
+    padding-right:20px;
+}

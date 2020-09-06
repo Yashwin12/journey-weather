@@ -13,19 +13,19 @@ class Map extends Component {
       document.getElementById(this.props.id),
       this.props.options);
 
-    // Map is loaded now. Let's create marker.
+    // Map is loaded now. Let'scriptEle create marker.
     this.props.onMapLoad(map)
   }
 
   componentDidMount() {
     if (!window.google) {
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.src = `https://maps.googleapis.com/maps/api/js?key=${myConstClass.API_KEY}&callback=myMap`;
+        var scriptEle = document.createElement('script');
+        scriptEle.type = 'text/javascript';
+        scriptEle.src = `https://maps.googleapis.com/maps/api/js?key=${myConstClass.API_KEY}`;
         var x = document.getElementsByTagName('script')[0];
-        x.parentNode.insertBefore(s, x);
-        //We cannot access google.maps until it's finished loading, so adding EventListener.
-        s.addEventListener('load', e => {
+        x.parentNode.insertBefore(scriptEle, x);
+        //We cannot access google.maps until it'scriptEle finished loading, so adding EventListener.
+        scriptEle.addEventListener('load', e => {
             this.onScriptLoad()
         })
     } else {
@@ -34,7 +34,7 @@ class Map extends Component {
   }
 
   render() {
-    //   console.log("This is in map", this.props);
+// console.log("This is in map", this.props);
     return (
       <div style={{ width: "100%", height: 700 }} id={this.props.id} />
     );
