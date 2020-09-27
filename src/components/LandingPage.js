@@ -3,12 +3,19 @@ import React, { Component } from "react";
 import Header from "../commonUtils/Header";
 import Map from "../components/Map";
 
+
+var directionsRenderer = null;
+var directionsService = null;
 class LandingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       clientsPosition: { lat: 37.0902, lng: 95.7129 },  // Setting default to load at the center of USA.
+      usersDestionationLocation: null,
+      usersOriginLocation: null
     };
+    this.buttonClick  = this.buttonClick.bind(this);
+    
   }
 
   componentDidMount() {
@@ -37,8 +44,53 @@ class LandingPage extends Component {
     if( !usersDestionationLocation && !usersOriginLocation )
       return;
 
-    // console.table( { usersOriginLocation, usersDestionationLocation} )
+    // SetState is an ASYNC function. When the setState execution is completed then only renderDirections func should be called.
+    this.setState( { usersOriginLocation, usersDestionationLocation }, () => {
+      this.renderDirections( window.map );
+    }); 
+  }
 
+  renderDirections( map = window.map ){
+    
+    let { usersOriginLocation, usersDestionationLocation } = this.state;
+
+    if( (map != undefined || map != null) && ( !!usersDestionationLocation && !!usersOriginLocation) ){
+       
+      // One needs to nullify directionsRenderer, as it would NOT AUTOMATICALLY clear previous routes from the map. 
+      if( directionsRenderer != null ){
+        directionsRenderer.setMap(null);
+        directionsRenderer = null;
+      }
+  
+      directionsService = new window.google.maps.DirectionsService();
+      directionsRenderer = new window.google.maps.DirectionsRenderer();
+    
+      directionsRenderer.setMap(map);
+      this.calculateAndDisplayRoute(directionsService, directionsRenderer, usersOriginLocation, usersDestionationLocation);      
+    }        
+  }
+
+  calculateAndDisplayRoute(directionsService, directionsRenderer, originLocation, destinationLocation) {
+    directionsService.route(
+      {
+        origin: {
+          // query: "Richmond"
+          query: originLocation
+        },
+        destination: {
+          // query: "Sacramento"
+          query: destinationLocation
+        },
+        travelMode: window.google.maps.TravelMode.DRIVING
+      },
+      (response, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+      }
+    );
   }
 
   render() {
@@ -61,7 +113,7 @@ class LandingPage extends Component {
             />
             <button
                 type="button"
-                onClick={ () => this.buttonClick() }
+                onClick={ this.buttonClick }
                 className="btn btn-success col-xl-1 ml-5 mr-5"
                 id="search-button"           
             >
@@ -70,19 +122,44 @@ class LandingPage extends Component {
         </form>
 
         <br/>
-        <Map
-          id="googleMap"
-          options={{
-            center: this.state.clientsPosition,
-            zoom: 8,
-          }}
-          onMapLoad={ (map) => {
-            const marker = new window.google.maps.Marker({
-              position: this.state.clientsPosition,
-              map: map            
-            });
-          }}
-        />
+
+        {/* { this.state.usersOriginLocation != null &&
+        this.state.usersDestionationLocation != null ? (
+          <Map
+            id="googleMap"
+            options={{
+              center: this.state.clientsPosition,
+              zoom: 8,
+            }}
+            onMapLoad={(map) => {
+              const marker = new window.google.maps.Marker({
+                position: this.state.clientsPosition,
+                map: map,
+              });
+            }}
+            renderDirections={ this.renderDirections() }
+          />
+        ) : null} */}
+
+       
+          <Map
+            id="googleMap"
+            options={{
+              center: this.state.clientsPosition,
+              zoom: 8,
+            }}
+            onMapLoad={ (map) => {
+              const marker = new window.google.maps.Marker({
+                position: this.state.clientsPosition,
+                map: map,
+              });
+            }}
+            renderDirections = { ( map ) => {
+
+              this.renderDirections(map);
+            }}
+          />        
+       
       </div>
     );
   }

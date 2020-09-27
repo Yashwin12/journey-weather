@@ -9,18 +9,23 @@ class Map extends Component {
   }
 
   onScriptLoad() {
-    const map = new window.google.maps.Map(
-      document.getElementById(this.props.id),
-      this.props.options);
+        
+    // Map should be assigned to a window object, as one can't access the map object in parent component.. 
+    // https://stackoverflow.com/questions/10253265/get-google-maps-map-instance-from-a-htmlelement
+    // const map = new window.google.maps.Map( document.getElementById(this.props.id), this.props.options);
+    window.map = new window.google.maps.Map( document.getElementById(this.props.id), this.props.options);
+    // Map is loaded now. Let's create marker.
+    this.props.onMapLoad(window.map)
 
-    // Map is loaded now. Let'scriptEle create marker.
-    this.props.onMapLoad(map)
+    this.props.renderDirections( window.map );
+
   }
 
   componentDidMount() {
     if (!window.google) {
         var scriptEle = document.createElement('script');
         scriptEle.type = 'text/javascript';
+        // https://maps.googleapis.com/maps/api/directions/json?origin=77056&destination=77494&key=AIzaSyBliI96c0HBIH6n-C2OofgxK_CBhyVoC0k
         scriptEle.src = `https://maps.googleapis.com/maps/api/js?key=${myConstClass.API_KEY}`;
         var x = document.getElementsByTagName('script')[0];
         x.parentNode.insertBefore(scriptEle, x);
@@ -36,7 +41,7 @@ class Map extends Component {
   render() {
 // console.log("This is in map", this.props);
     return (
-      <div style={{ width: "100%", height: 700 }} id={this.props.id} />
+      <div style={{ width: "100%", height: "900px"}} id={this.props.id} />
     );
   }
 }
