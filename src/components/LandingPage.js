@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Header from "../commonUtils/Header";
 import Map from "../components/Map";
-
+import * as myConstClass from "../commonUtils/Constants";
 
 var directionsRenderer = null;
 var directionsService = null;
@@ -15,11 +15,40 @@ class LandingPage extends Component {
       usersOriginLocation: null
     };
     this.buttonClick  = this.buttonClick.bind(this);
-    
+    this.onScriptLoad = this.onScriptLoad.bind(this);    
+  }
+
+
+  onScriptLoad() {
+        
+    var options = {
+      center: this.state.clientsPosition,
+      zoom: 8,
+    }
+    // Map should be assigned to a window object, as one can't access the map object directly.. 
+    // HACK: https://stackoverflow.com/questions/10253265/get-google-maps-map-instance-from-a-htmlelement    
+    // const map = new window.google.maps.Map( document.getElementById(this.props.id), this.props.options);
+    window.map = new window.google.maps.Map( document.getElementById( myConstClass.GOOGLE_MAPS_ID ), options );
+    // Map is loaded now. It can be accessed via window.google
   }
 
   componentDidMount() {
     this.clientCoordinates();
+
+    if (!window.google) {
+      var scriptEle = document.createElement("script");
+      scriptEle.type = "text/javascript";
+      scriptEle.src = `${myConstClass.GOOGLE_MAPS_JS}?key=${myConstClass.API_KEY}`;
+      var x = document.getElementsByTagName("script")[0];
+      x.parentNode.insertBefore(scriptEle, x);
+      //We cannot access google.maps until it'scriptEle finished loading, so adding EventListener.
+      scriptEle.addEventListener("load", (e) => {
+        this.onScriptLoad();
+      });
+    } else {
+      this.onScriptLoad();
+    }
+
   }
 
   clientCoordinates() {
@@ -44,53 +73,8 @@ class LandingPage extends Component {
     if( !usersDestionationLocation && !usersOriginLocation )
       return;
 
-    // SetState is an ASYNC function. When the setState execution is completed then only renderDirections func should be called.
-    this.setState( { usersOriginLocation, usersDestionationLocation }, () => {
-      this.renderDirections( window.map );
-    }); 
-  }
-
-  renderDirections( map = window.map ){
-    
-    let { usersOriginLocation, usersDestionationLocation } = this.state;
-
-    if( (map != undefined || map != null) && ( !!usersDestionationLocation && !!usersOriginLocation) ){
-       
-      // One needs to nullify directionsRenderer, as it would NOT AUTOMATICALLY clear previous routes from the map. 
-      if( directionsRenderer != null ){
-        directionsRenderer.setMap(null);
-        directionsRenderer = null;
-      }
-  
-      directionsService = new window.google.maps.DirectionsService();
-      directionsRenderer = new window.google.maps.DirectionsRenderer();
-    
-      directionsRenderer.setMap(map);
-      this.calculateAndDisplayRoute(directionsService, directionsRenderer, usersOriginLocation, usersDestionationLocation);      
-    }        
-  }
-
-  calculateAndDisplayRoute(directionsService, directionsRenderer, originLocation, destinationLocation) {
-    directionsService.route(
-      {
-        origin: {
-          // query: "Richmond"
-          query: originLocation
-        },
-        destination: {
-          // query: "Sacramento"
-          query: destinationLocation
-        },
-        travelMode: window.google.maps.TravelMode.DRIVING
-      },
-      (response, status) => {
-        if (status === "OK") {
-          directionsRenderer.setDirections(response);
-        } else {
-          window.alert("Directions request failed due to " + status);
-        }
-      }
-    );
+    // NOTE: SetState is an ASYNC function. 
+    this.setState( { usersOriginLocation, usersDestionationLocation }); 
   }
 
   render() {
@@ -123,42 +107,14 @@ class LandingPage extends Component {
 
         <br/>
 
-        {/* { this.state.usersOriginLocation != null &&
-        this.state.usersDestionationLocation != null ? (
+        { !!this.state.usersOriginLocation &&
+        !!this.state.usersDestionationLocation ? (
           <Map
-            id="googleMap"
-            options={{
-              center: this.state.clientsPosition,
-              zoom: 8,
-            }}
-            onMapLoad={(map) => {
-              const marker = new window.google.maps.Marker({
-                position: this.state.clientsPosition,
-                map: map,
-              });
-            }}
-            renderDirections={ this.renderDirections() }
+            id= {myConstClass.GOOGLE_MAPS_ID}
+            source = {this.state.usersOriginLocation}
+            destination = { this.state.usersDestionationLocation }        
           />
-        ) : null} */}
-
-       
-          <Map
-            id="googleMap"
-            options={{
-              center: this.state.clientsPosition,
-              zoom: 8,
-            }}
-            onMapLoad={ (map) => {
-              const marker = new window.google.maps.Marker({
-                position: this.state.clientsPosition,
-                map: map,
-              });
-            }}
-            renderDirections = { ( map ) => {
-
-              this.renderDirections(map);
-            }}
-          />        
+        ) : null}
        
       </div>
     );
