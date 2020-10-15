@@ -2,9 +2,10 @@ import axios from "axios";
 
 import {containsKey} from "./CommonUtilities.js";
 
-function APICall ( baseURI = null , otherUriParams = [] ) {
 
-    if( baseURI !== null && baseURI !== "" && containsKey( "key", otherUriParams ) === false ){
+function APICall ( baseURI = null , otherUriParams = [], headersObj = {} ) {
+
+    if( baseURI !== null && baseURI !== "" && ( containsKey( "key", otherUriParams ) || containsKey( "appid", otherUriParams ))  === false ){
         console.info( "BaseURI && apiKey is not valid");        
         return;
     }
@@ -21,9 +22,13 @@ function APICall ( baseURI = null , otherUriParams = [] ) {
 
     let finalUrl = `${baseURI}${uriParams}`
 
+    // By default content-type would be application/json, if header is not present.
+    if( !headersObj || Object.keys(headersObj).length === 0 ){
+        headersObj = {'Content-Type': 'application/json'};
+    }
+
     return new Promise( (resolve, reject) => {
-        // axios.defaults.headers.get['']
-        axios.get(  finalUrl, { headers:{"Access-Control-Allow-Origin": "*"} })
+        axios.get(  finalUrl, {headers: headersObj })
         .then( (response) => {         
             resolve(response); 
         })

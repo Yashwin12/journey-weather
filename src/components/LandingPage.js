@@ -4,20 +4,18 @@ import Header from "../commonUtils/Header";
 import Map from "../components/Map";
 import * as myConstClass from "../commonUtils/Constants";
 
-var directionsRenderer = null;
-var directionsService = null;
 class LandingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       clientsPosition: { lat: 37.0902, lng: 95.7129 },  // Setting default to load at the center of USA.
       usersDestionationLocation: null,
-      usersOriginLocation: null
+      usersOriginLocation: null,
+      journeyStartTime: null
     };
     this.buttonClick  = this.buttonClick.bind(this);
     this.onScriptLoad = this.onScriptLoad.bind(this);    
   }
-
 
   onScriptLoad() {
         
@@ -38,7 +36,7 @@ class LandingPage extends Component {
     if (!window.google) {
       var scriptEle = document.createElement("script");
       scriptEle.type = "text/javascript";
-      scriptEle.src = `${myConstClass.GOOGLE_MAPS_JS}?key=${myConstClass.API_KEY}`;
+      scriptEle.src = `${myConstClass.GOOGLE_MAPS_JS}?key=${myConstClass.GOOGLE_MAPS_API_KEY}`;
       var x = document.getElementsByTagName("script")[0];
       x.parentNode.insertBefore(scriptEle, x);
       //We cannot access google.maps until it'scriptEle finished loading, so adding EventListener.
@@ -69,13 +67,30 @@ class LandingPage extends Component {
   buttonClick(){
     let usersOriginLocation = document.getElementById("usersOriginLocation").value;
     let usersDestionationLocation = document.getElementById("usersDestionationLocation").value;
-
-    if( !usersDestionationLocation && !usersOriginLocation )
+    let journeyStartTime = document.getElementById("journeyStartTime").value;
+    // let journeyStartDate = document.getElementById('journeyStartDate').options[document.getElementById('journeyStartDate').selectedIndex].text;
+        
+    if( !usersDestionationLocation && !usersOriginLocation && !!journeyStartTime )
       return;
 
     // NOTE: SetState is an ASYNC function. 
-    this.setState( { usersOriginLocation, usersDestionationLocation }); 
+    this.setState( { usersOriginLocation, usersDestionationLocation, journeyStartTime }); 
   }
+
+  // loadTimeOptions(){
+  //   var today = new Date();
+  //   var htmlOptionArr = [];
+
+  //   for ( var i = 0; i < 5; i++ ){
+  //     today.setDate(today.getDate() + 1);
+  //     var formatedDate = today.toISOString().substr(0,10);
+
+  //     htmlOptionArr.push(
+  //       <option value={formatedDate}>{formatedDate}</option>
+  //     )
+  //   }
+  //   return htmlOptionArr;
+  // }
 
   render() {
     return (
@@ -95,6 +110,13 @@ class LandingPage extends Component {
                 className="form-control col-xl-3 ml-5 mr-5" 
                 placeholder="Please enter destination"
             />
+
+            {/* <select id="journeyStartDate">
+              {this.loadTimeOptions()}
+            </select> */}
+            
+            <input id = "journeyStartTime" type="time" step = "1800" required/>
+          
             <button
                 type="button"
                 onClick={ this.buttonClick }
@@ -102,17 +124,19 @@ class LandingPage extends Component {
                 id="search-button"           
             >
                 Let's go
-            </button>        
+            </button> 
+            
         </form>
 
         <br/>
 
         { !!this.state.usersOriginLocation &&
-        !!this.state.usersDestionationLocation ? (
+        !!this.state.usersDestionationLocation && !!this.state.journeyStartTime ? (
           <Map
             id= {myConstClass.GOOGLE_MAPS_ID}
             source = {this.state.usersOriginLocation}
             destination = { this.state.usersDestionationLocation }        
+            journeyStartTime = { this.state.journeyStartTime }
           />
         ) : null}
        

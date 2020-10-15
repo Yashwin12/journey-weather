@@ -5,4 +5,8 @@ export function containsKey(keyToFind, objectArray) {
       }
     }
     return false;
-  }
+}
+
+export function formatTime_unixToHHMM(unixTime) {
+  return new Date(unixTime * 1000).toISOString().match(/(\d{2}:\d{2}:\d{2})/)[1];
+}
