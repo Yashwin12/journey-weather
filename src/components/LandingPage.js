@@ -11,7 +11,7 @@ class LandingPage extends Component {
       clientsPosition: { lat: 37.0902, lng: 95.7129 },  // Setting default to load at the center of USA.
       usersDestionationLocation: null,
       usersOriginLocation: null,
-      journeyStartTime: null
+      dateTimeObjectToUnix: null
     };
     this.buttonClick  = this.buttonClick.bind(this);
     this.onScriptLoad = this.onScriptLoad.bind(this);    
@@ -68,29 +68,37 @@ class LandingPage extends Component {
     let usersOriginLocation = document.getElementById("usersOriginLocation").value;
     let usersDestionationLocation = document.getElementById("usersDestionationLocation").value;
     let journeyStartTime = document.getElementById("journeyStartTime").value;
-    // let journeyStartDate = document.getElementById('journeyStartDate').options[document.getElementById('journeyStartDate').selectedIndex].text;
-        
-    if( !usersDestionationLocation && !usersOriginLocation && !!journeyStartTime )
+    let journeyStartDate = document.getElementById('journeyStartDate').options[document.getElementById('journeyStartDate').selectedIndex].text;
+      
+    if( !usersDestionationLocation && !usersOriginLocation && !!journeyStartTime && !!journeyStartDate )
       return;
 
+    var dateTimeObjectToUnix = new Date(`${journeyStartDate}T${journeyStartTime}`).getTime()/1000;
+
     // NOTE: SetState is an ASYNC function. 
-    this.setState( { usersOriginLocation, usersDestionationLocation, journeyStartTime }); 
+    this.setState( { usersOriginLocation, usersDestionationLocation, dateTimeObjectToUnix }); 
   }
 
-  // loadTimeOptions(){
-  //   var today = new Date();
-  //   var htmlOptionArr = [];
+  loadTimeOptions(){
+    var today = new Date();
+    var htmlOptionArr = [];
 
-  //   for ( var i = 0; i < 5; i++ ){
-  //     today.setDate(today.getDate() + 1);
-  //     var formatedDate = today.toISOString().substr(0,10);
+    var formatedDate = today.toISOString().substr(0,10);
+    // Will push today's date first.. 
+    htmlOptionArr.push(
+      <option value={formatedDate}>{formatedDate}</option>
+    );
+    
+    for ( var i = 1; i < 3; i++ ){
+      today.setDate(today.getDate() + 1);
+      formatedDate = today.toISOString().substr(0,10);
 
-  //     htmlOptionArr.push(
-  //       <option value={formatedDate}>{formatedDate}</option>
-  //     )
-  //   }
-  //   return htmlOptionArr;
-  // }
+      htmlOptionArr.push(
+        <option value={formatedDate}>{formatedDate}</option>
+      );
+    }
+    return htmlOptionArr;
+  }
 
   render() {
     return (
@@ -99,28 +107,27 @@ class LandingPage extends Component {
         <form className="form-inline container justify-content-center">
             <input
                 type="text" 
+                className="form-control col-xl-2 ml-2 mr-2"  // Using Bootstrap's util for spacing. 
                 id="usersOriginLocation" 
-                className="form-control col-xl-3 ml-5 mr-5"  // Using Bootstrap's util for spacing. 
-                placeholder="Please enter Origin"
+                placeholder="Origin"
             />
 
             <input 
                 type="text" 
+                className="form-control col-xl-2 ml-2 mr-2" 
                 id="usersDestionationLocation" 
-                className="form-control col-xl-3 ml-5 mr-5" 
-                placeholder="Please enter destination"
+                placeholder="Destination"
             />
+            <select id="journeyStartDate" className="form-control col-xl-2 ml-2 mr-2">
 
-            {/* <select id="journeyStartDate">
               {this.loadTimeOptions()}
-            </select> */}
-            
-            <input id = "journeyStartTime" type="time" step = "1800" required/>
-          
+            </select>
+            <input id = "journeyStartTime" className="form-control col-xl-2 ml-2 mr-2" type="time" step = "1800" required/>
+                      
             <button
                 type="button"
+                className="btn btn-success col-xl-1 ml-2 mr-2"
                 onClick={ this.buttonClick }
-                className="btn btn-success col-xl-1 ml-5 mr-5"
                 id="search-button"           
             >
                 Let's go
@@ -131,12 +138,12 @@ class LandingPage extends Component {
         <br/>
 
         { !!this.state.usersOriginLocation &&
-        !!this.state.usersDestionationLocation && !!this.state.journeyStartTime ? (
+        !!this.state.usersDestionationLocation && !!this.state.dateTimeObjectToUnix ? (
           <Map
             id= {myConstClass.GOOGLE_MAPS_ID}
             source = {this.state.usersOriginLocation}
             destination = { this.state.usersDestionationLocation }        
-            journeyStartTime = { this.state.journeyStartTime }
+            dateTimeObjectToUnix = {this.state.dateTimeObjectToUnix }
           />
         ) : null}
        

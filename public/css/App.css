@@ -1,18 +1,13 @@
 h2 {
-    background-color: aqua;
+    background-color: rgb(242, 207, 170);
 }
 
 .form-inline {
-    border: blue;
+    border: black;
     border-style: solid;
     padding:10px;
     justify-content: space-between;
     display: flex;
     flex-wrap: wrap;
-    background-color: gray;
-}
-
-input * {
-    padding-left:20px;
-    padding-right:20px;
+    background-color: #dee2e6;
 }

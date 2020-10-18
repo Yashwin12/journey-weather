@@ -18,7 +18,7 @@ class Map extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.value != nextState.value;
+    return this.state.directionsInHTMLFormat.length != nextState.directionsInHTMLFormat.length;
   }
 
   getDataFromDirectionsAPI() {
@@ -48,7 +48,7 @@ class Map extends Component {
 
       this.weatherForUniqueCities( resp.data.routes[0].legs[0].steps );
 
-      this.setState ( { directionsInHTMLFormat: this.htmlDirections(resp.data.routes[0].legs[0].steps) });
+      this.setState ( { directionsInHTMLFormat: this.htmlDirections(resp.data.routes[0].legs[0].steps, this.props.dateTimeObjectToUnix) });
       this.initMap(startLat, startLong, endLat, endLong);
     });
   }
@@ -56,21 +56,10 @@ class Map extends Component {
   weatherForUniqueCities( stepsArray ){
 
     let uniqueCities = [];
-
-    var today = new Date();
-    var beginningOfTomorrow = new Date();
-    beginningOfTomorrow.setDate(today.getDate() + 1);
-    beginningOfTomorrow.setHours(0, 0, 0);
-    var startTimeHuman = this.props.journeyStartTime;
-
-    beginningOfTomorrow.setHours( startTimeHuman.substring(0, 2), startTimeHuman.substring(3, 5), 0);
-    var startTimeUnix = (beginningOfTomorrow.getTime())/1000; // Converts startTime into UNIX timestamp
-    var currentTime = startTimeUnix;
-    console.log("1: ", currentTime);
-
     let boxDetails = [];
-    
+    var currentTime = this.props.dateTimeObjectToUnix;    
     var itemsProcessed = 0;
+
     stepsArray.forEach( (element) => {
         
         var uriParams = [
@@ -96,7 +85,6 @@ class Map extends Component {
         
         var responseFromWeatherAPI  = APICall(myConstClass.OPEN_WEATHER_MAP_API_URI, uriParams, headersObj);
         responseFromWeatherAPI.then((respFromWeather) => {
-          // console.log(respFromWeather);
           
           itemsProcessed++;
 
@@ -104,27 +92,21 @@ class Map extends Component {
             // uniqueCities array doesn't contains this location, needs to be shown on the map.. 
             uniqueCities.push(respFromWeather.data.city.name);
 
-            console.log("E: ", element.duration.value)
             currentTime = currentTime + element.duration.value; // This is from google maps for each leg in seconds 
-
 
             for ( var j = 0; j < respFromWeather.data.list.length; j++ ){
               var ele = respFromWeather.data.list[j];
+
               if( currentTime < ele.dt ){
-                console.log(currentTime);
                 boxDetails.push({
-                  // startLat: element.start_location.lat,
-                  // startLong: element.start_location.lng,
-                  // endLat: element.end_location.lat,
-                  // endLong: element.end_location.lng,
                   cityLat: respFromWeather.data.city.coord.lat,
                   cityLong: respFromWeather.data.city.coord.lon,
                   city: respFromWeather.data.city.name,
-                  // time: currentTime,
-                  time: formatTime_unixToHHMM(currentTime),
                   conditions: ele.weather[0].description,
+
                   // 300K × 9/5 - 459.67 = 80.33 °F
                   temperature: `${Math.round( (ele.main.temp - 273.15) * 9/5 + 32)}°F`,
+
                   // HACK: https://openweathermap.org/weather-conditions
                   weatherIcon : `https://openweathermap.org/img/wn/${ele.weather[0].icon}@2x.png` 
                 });
@@ -136,15 +118,10 @@ class Map extends Component {
 
           // The below loop is to check whether all the aysnc calls from weatherAPI are completed or not. After completion of ALL the weatherAPI calls it will go inside this if loop..
           if( itemsProcessed === stepsArray.length) {
-            console.log("cities:", uniqueCities.length);
-            console.log(boxDetails);
-            console.log(this.state.directionsInHTMLFormat);
-
             this.setMarkers(window.map, boxDetails);
           }
 
         }); // end of Promise
- 
     }); // end of stepsArray loop
 
   }
@@ -162,11 +139,13 @@ class Map extends Component {
     }
   }
 
-  htmlDirections( stepsArray ){
+  htmlDirections( stepsArray, dateTimeObjectToUnix ){
+    console.log(dateTimeObjectToUnix);
 
     let arrayToReturn = [];
     stepsArray.forEach( (element) => {
-      arrayToReturn.push(element.html_instructions);
+      dateTimeObjectToUnix += element.duration.value;
+      arrayToReturn.push({ unixTimeStamp: dateTimeObjectToUnix, direction: element.html_instructions});
     });
 
     return arrayToReturn;
@@ -182,10 +161,10 @@ class Map extends Component {
     );
 
     // One needs to nullify directionsRenderer, as it would NOT AUTOMATICALLY clear previous routes from the map.
-    // if (directionsRenderer != null) {
-    //   directionsRenderer.setMap(null);
-    //   directionsRenderer = null;
-    // }
+    if (directionsRenderer != null) {
+      directionsRenderer.setMap(null);
+      directionsRenderer = null;
+    }
 
     // Instantiate a directions service.
     directionsService = new window.google.maps.DirectionsService();
@@ -196,8 +175,6 @@ class Map extends Component {
     // get route from A to B
     this.calculateAndDisplayRoute( directionsService, directionsRenderer, pointA, pointB );
   }
-
-
 
   calculateAndDisplayRoute( directionsService, directionsRenderer, pointA, pointB ) {
     directionsService.route(

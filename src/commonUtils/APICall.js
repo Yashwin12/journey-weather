@@ -28,7 +28,7 @@ function APICall ( baseURI = null , otherUriParams = [], headersObj = {} ) {
     }
 
     return new Promise( (resolve, reject) => {
-        axios.get(  finalUrl, {headers: headersObj })
+        axios.get( finalUrl, {headers: headersObj })
         .then( (response) => {         
             resolve(response); 
         })

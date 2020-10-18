@@ -8,5 +8,10 @@ export function containsKey(keyToFind, objectArray) {
 }
 
 export function formatTime_unixToHHMM(unixTime) {
-  return new Date(unixTime * 1000).toISOString().match(/(\d{2}:\d{2}:\d{2})/)[1];
+  var date = new Date(unixTime * 1000);
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+
+  var formattedDate = date.toISOString().substr(5,5);
+  return `${formattedDate} ~ ${hours}:${minutes}`;
 }
