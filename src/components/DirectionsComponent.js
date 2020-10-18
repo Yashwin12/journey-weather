@@ -12,7 +12,7 @@ class DirectionsComponent extends Component {
         this.props.directionsInHTMLFormat.forEach( (element) => {
             htmlDirectionsArr.push(
                 <tr>                
-                    <td scope = "row">{formatTime_unixToHHMM(element.unixTimeStamp)}</td>
+                    <td>{formatTime_unixToHHMM(element.unixTimeStamp)}</td>
                     <td dangerouslySetInnerHTML={{ __html: element.direction }} />
                 </tr>
             );

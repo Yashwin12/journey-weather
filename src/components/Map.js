@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import * as myConstClass from "../commonUtils/Constants";
 import APICall from "../commonUtils/APICall";
-import { formatTime_unixToHHMM } from "../commonUtils/CommonUtilities";
+import * as myConstClass from "../commonUtils/Constants";
 import DirectionsComponent from "../components/DirectionsComponent";
 
 var directionsRenderer = null;
@@ -18,7 +16,7 @@ class Map extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.state.directionsInHTMLFormat.length != nextState.directionsInHTMLFormat.length;
+    return this.state.directionsInHTMLFormat.length !== nextState.directionsInHTMLFormat.length;
   }
 
   getDataFromDirectionsAPI() {
@@ -184,7 +182,7 @@ class Map extends Component {
         travelMode: window.google.maps.TravelMode.DRIVING,
       },
       function (response, status) {
-        if (status == "OK") {
+        if (status === "OK") {
           directionsRenderer.setDirections(response);
         } else {
           window.alert("Directions request failed due to " + status);
