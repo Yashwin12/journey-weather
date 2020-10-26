@@ -138,7 +138,6 @@ class Map extends Component {
   }
 
   htmlDirections( stepsArray, dateTimeObjectToUnix ){
-    console.log(dateTimeObjectToUnix);
 
     let arrayToReturn = [];
     stepsArray.forEach( (element) => {
