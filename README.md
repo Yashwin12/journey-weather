@@ -16,6 +16,8 @@ Following are the two core functionalities
 
 ### `How to run this project ?` <img src = "https://media.giphy.com/media/l44QeXqzp5JoYSNe8/giphy.gif" height = "25" width = "25">
 
+**Note: Add APIKeys for GOOGLE_MAPS_API_KEY & OPEN_WEATHER_MAP_API_KEY in the Constants.js file!**
+
 -   You should have NodeJS insalled in your localhost machine [Download NodeJS](https://nodejs.org/en/)
 -   Open Terminal
 -   Navigate to Project Directory
