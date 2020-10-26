@@ -15,7 +15,7 @@ Following are the two core functionalities
 
 ![](./gifs/journeyWeather.gif)
 
-### `Know limitations ?` <img src = "https://media.giphy.com/media/TydZAW0DVCbGE/giphy.gif" height = "25" width = "25">
+### `Known limitations ?` <img src = "https://media.giphy.com/media/TydZAW0DVCbGE/giphy.gif" height = "25" width = "25">
 As Journey-weather is uing `free` version of the APIs, one might run into few issues but not limited to HTTP 429 - too many requests.
 
 ### `How to run this project ?` <img src = "https://media.giphy.com/media/l44QeXqzp5JoYSNe8/giphy.gif" height = "25" width = "25">
