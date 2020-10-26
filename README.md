@@ -1,68 +1,29 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Journey-Weather <img src ="https://media.giphy.com/media/xjIsb648nX0pw8kdBd/giphy.gif" width = "30" height = "25">
+Journey-weather gives a basic route to drive between your destinations, and a weather forecast for each stage along the way at the approximate time you will be passing.
 
-## Available Scripts
+Journey-weather is an easy to use: simply give the start and end point of your journey, and date-time you want to start. Then click on 'Let's go'. You will see the route you can travel along with the weather forecast for each stage at the time we expect you to be passing.
 
-In the project directory, you can run:
+### `Inspiration` <img src="https://media.giphy.com/media/26BkNrGhy4DKnbD9u/giphy.gif" width = "30" height= "25">
 
-### `npm start`
+This is a self-inspired project and saw its requisite when I had to travel from `Houston,Texas` to `Springfield, Virginia`. During this driving journey, I ran into multiple thunderstorms and it made my journey overall arduous.   
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `Core functionality` <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30"> 
+Following are the two core functionalities 
+- Weather information (temperature, thunderstorm, clear sky and so on) along the journey route.
+- Detailed directions along with expected date-time.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![](./gifs/journeyWeather.gif)
 
-### `npm test`
+### `How to run this project ?` <img src = "https://media.giphy.com/media/l44QeXqzp5JoYSNe8/giphy.gif" height = "25" width = "25">
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   You should have NodeJS insalled in your localhost machine [Download NodeJS](https://nodejs.org/en/)
+-   Open Terminal
+-   Navigate to Project Directory
+-   Hit`npm install`; This will install all required dependencies 
+-   After completion of above command, hit `npm start`
+-   Wait for it to compile
+-   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   Enjoy the journey-weather!
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### `Contributions.` <img src = "https://media.giphy.com/media/ukMiDlCmdv2og/giphy.gif" height  = "25" width = "25" >
+Please feel free to fork, improve, make pull requests or fill issues. I'll be glad to fix bugs you encountered.
