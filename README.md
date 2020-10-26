@@ -1,11 +1,11 @@
 ## Journey-Weather <img src ="https://media.giphy.com/media/xjIsb648nX0pw8kdBd/giphy.gif" width = "30" height = "25">
-Journey-weather gives a basic route to drive between your destinations, and a weather forecast for each stage along the way at the approximate time you will be passing.
+Journey-weather gives a basic route to drive between your destinations, and a weather forecast for each stage along the way at the approximate time you will be passing. This weather allows you to prepare for the worst. 
 
 Journey-weather is an easy to use: simply give the start and end point of your journey, and date-time you want to start. Then click on 'Let's go'. You will see the route you can travel along with the weather forecast for each stage at the time we expect you to be passing.
 
 ### `Inspiration` <img src="https://media.giphy.com/media/26BkNrGhy4DKnbD9u/giphy.gif" width = "30" height= "25">
 
-This is a self-inspired project and saw its requisite when I had to travel from `Houston,Texas` to `Springfield, Virginia`. During this driving journey, I ran into multiple thunderstorms and it made my journey overall arduous.   
+This project was inspired by my long trip back home to `Virginia` from `Texas` to be with my family during COVID-19 pandemic. During the journey, I faced multiple thunderstorms and weather obstacles that made my journey much more arduous. 
 
 ### `Core functionality` <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30"> 
 Following are the two core functionalities 
