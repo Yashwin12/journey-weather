@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/journey-weather/static/css/main.88824ec2.chunk.css",
+    "main.js": "/journey-weather/static/js/main.a2e22991.chunk.js",
+    "main.js.map": "/journey-weather/static/js/main.a2e22991.chunk.js.map",
+    "runtime-main.js": "/journey-weather/static/js/runtime-main.405ee4be.js",
+    "runtime-main.js.map": "/journey-weather/static/js/runtime-main.405ee4be.js.map",
+    "static/js/2.f1e53209.chunk.js": "/journey-weather/static/js/2.f1e53209.chunk.js",
+    "static/js/2.f1e53209.chunk.js.map": "/journey-weather/static/js/2.f1e53209.chunk.js.map",
+    "index.html": "/journey-weather/index.html",
+    "precache-manifest.b42ae9cbb4d1b801fe5c3ff9ad711297.js": "/journey-weather/precache-manifest.b42ae9cbb4d1b801fe5c3ff9ad711297.js",
+    "service-worker.js": "/journey-weather/service-worker.js",
+    "static/css/main.88824ec2.chunk.css.map": "/journey-weather/static/css/main.88824ec2.chunk.css.map",
+    "static/js/2.f1e53209.chunk.js.LICENSE.txt": "/journey-weather/static/js/2.f1e53209.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.405ee4be.js",
+    "static/js/2.f1e53209.chunk.js",
+    "static/css/main.88824ec2.chunk.css",
+    "static/js/main.a2e22991.chunk.js"
+  ]
+}
