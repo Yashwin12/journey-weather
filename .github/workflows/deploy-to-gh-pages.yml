@@ -22,7 +22,7 @@ jobs:
           REACT_APP_OPEN_WEATHER_MAP_API_KEY: ${{ secrets.REACT_APP_OPEN_WEATHER_MAP_API_KEY }}
 
       - name: Deploy 🚀
-        uses: Yashwin12/github-pages-deploy-action@3.6.2
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
