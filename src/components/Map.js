@@ -77,11 +77,12 @@ class Map extends Component {
 
         // Keeping this instead of application/json as to get around CORS error. 
         // Application/json will trigger a 'preflight' request, which needs a proxy server in-between for CORS header to be added. Hitting proxy cors-anywhere would result into 429 Status Code (Too Many Requests).
-        var headersObj = {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
+        // var headersObj = {
+        //   "Content-Type": "application/x-www-form-urlencoded"
+        // }
         
-        var responseFromWeatherAPI  = APICall(myConstClass.OPEN_WEATHER_MAP_API_URI, uriParams, headersObj);
+        // var responseFromWeatherAPI  = APICall(myConstClass.OPEN_WEATHER_MAP_API_URI, uriParams, headersObj);
+        var responseFromWeatherAPI  = APICall(myConstClass.OPEN_WEATHER_MAP_API_URI, uriParams, {});
         responseFromWeatherAPI.then((respFromWeather) => {
           
           itemsProcessed++;
