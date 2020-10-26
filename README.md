@@ -23,7 +23,7 @@ Following are the two core functionalities
 -   After completion of above command, hit `npm start`
 -   Wait for it to compile
 -   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
--   Enjoy the visualiser!
+-   Enjoy the journey-weather!
 
 ### `Contributions.` <img src = "https://media.giphy.com/media/ukMiDlCmdv2og/giphy.gif" height  = "25" width = "25" >
 Please feel free to fork, improve, make pull requests or fill issues. I'll be glad to fix bugs you encountered.
