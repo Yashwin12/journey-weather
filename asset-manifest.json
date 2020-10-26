@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/journey-weather/static/css/main.88824ec2.chunk.css",
-    "main.js": "/journey-weather/static/js/main.3e72eead.chunk.js",
-    "main.js.map": "/journey-weather/static/js/main.3e72eead.chunk.js.map",
+    "main.js": "/journey-weather/static/js/main.7cb9b928.chunk.js",
+    "main.js.map": "/journey-weather/static/js/main.7cb9b928.chunk.js.map",
     "runtime-main.js": "/journey-weather/static/js/runtime-main.405ee4be.js",
     "runtime-main.js.map": "/journey-weather/static/js/runtime-main.405ee4be.js.map",
     "static/js/2.f1e53209.chunk.js": "/journey-weather/static/js/2.f1e53209.chunk.js",
     "static/js/2.f1e53209.chunk.js.map": "/journey-weather/static/js/2.f1e53209.chunk.js.map",
     "index.html": "/journey-weather/index.html",
-    "precache-manifest.039d4a04cb1630fc6ec50fd26b3802a2.js": "/journey-weather/precache-manifest.039d4a04cb1630fc6ec50fd26b3802a2.js",
+    "precache-manifest.5f9f4003377f6478e3574b231319b356.js": "/journey-weather/precache-manifest.5f9f4003377f6478e3574b231319b356.js",
     "service-worker.js": "/journey-weather/service-worker.js",
     "static/css/main.88824ec2.chunk.css.map": "/journey-weather/static/css/main.88824ec2.chunk.css.map",
     "static/js/2.f1e53209.chunk.js.LICENSE.txt": "/journey-weather/static/js/2.f1e53209.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.405ee4be.js",
     "static/js/2.f1e53209.chunk.js",
     "static/css/main.88824ec2.chunk.css",
-    "static/js/main.3e72eead.chunk.js"
+    "static/js/main.7cb9b928.chunk.js"
   ]
 }

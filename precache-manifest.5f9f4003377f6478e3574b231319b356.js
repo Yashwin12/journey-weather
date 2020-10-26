@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ed4c5b041477b4a6f1c2e90c21289ee1",
+    "revision": "2e7f6299c849c5d953bdab036796b0a3",
     "url": "/journey-weather/index.html"
   },
   {
-    "revision": "0a9376db2a01980212d9",
+    "revision": "63848f816e08b8f756e3",
     "url": "/journey-weather/static/css/main.88824ec2.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/journey-weather/static/js/2.f1e53209.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "0a9376db2a01980212d9",
-    "url": "/journey-weather/static/js/main.3e72eead.chunk.js"
+    "revision": "63848f816e08b8f756e3",
+    "url": "/journey-weather/static/js/main.7cb9b928.chunk.js"
   },
   {
     "revision": "6c3c73433d75fca86415",
