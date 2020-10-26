@@ -1,0 +1,29 @@
+# HACK: https://dev.to/pierresaid/deploy-node-projects-to-github-pages-with-github-actions-4jco
+# HACK: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/introduction-to-github-actions
+# INFO: This workflow will deploy a static web site to GitHub Pages every time a change is made to the master branch. 
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Install and Build 🔧
+        run: |
+          npm install
+          npm run-script build
+        env:
+          REACT_APP_GOOGLE_MAPS_API_KEY: ${{ secrets.REACT_APP_GOOGLE_MAPS_API_KEY }}
+          REACT_APP_OPEN_WEATHER_MAP_API_KEY: ${{ secrets.REACT_APP_OPEN_WEATHER_MAP_API_KEY }}
+
+      - name: Deploy 🚀
+        uses: Yashwin12/github-pages-deploy-action@3.6.2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: dist
