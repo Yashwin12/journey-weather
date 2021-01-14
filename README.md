@@ -15,7 +15,7 @@ Following are the two core functionalities
 
 ![](./gifs/journeyWeather.gif)
 
-### `Known limitations` <img src = "https://media.giphy.com/media/TydZAW0DVCbGE/giphy.gif" height = "25" width = "25">
+### `Know limitations ?` <img src = "https://media.giphy.com/media/TydZAW0DVCbGE/giphy.gif" height = "25" width = "25">
 As Journey-weather is uing `free` version of the APIs, one might run into few issues but not limited to HTTP 429 - too many requests.
 
 ### `How to run this project ?` <img src = "https://media.giphy.com/media/l44QeXqzp5JoYSNe8/giphy.gif" height = "25" width = "25">
@@ -33,3 +33,6 @@ As Journey-weather is uing `free` version of the APIs, one might run into few is
 
 ### `Contributions` <img src = "https://media.giphy.com/media/ukMiDlCmdv2og/giphy.gif" height  = "25" width = "25" >
 Please feel free to fork, improve, make pull requests or fill issues. I'll be glad to fix bugs you encountered.
+
+### `Known limitations` <img src = "https://media.giphy.com/media/TydZAW0DVCbGE/giphy.gif" height = "25" width = "25">
+This site is using free-tier of the Google Maps APIs, so it might not behave as "production-ready" or may not even work. 
